@@ -482,13 +482,9 @@
 </div>
 
 <!-- FIREBASE -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-  // ======================================================
-  // 🔥 REEMPLAZÁ ESTOS VALORES con los de tu proyecto Firebase
-  // ======================================================
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
   const firebaseConfig = {
     apiKey: "AIzaSyAsapxLjTnylMb8_-EeTybVbx7a6hgT6SU",
     authDomain: "mundial2026ba.firebaseapp.com",
@@ -498,15 +494,17 @@
     appId: "1:384081938778:web:f00cdae8af446937a7cb63",
     measurementId: "G-2N1ND7DJGN"
   };
-  // ======================================================
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
 
   window.guardarEnFirebase = async function(data) {
-    const docRef = await addDoc(collection(db, "pronosticos"), {
-      ...data,
-      timestamp: serverTimestamp()
+    const docRef = await db.collection("pronosticos").add({
+      nombre: data.nombre,
+      apellido: data.apellido,
+      telefono: data.telefono,
+      email: data.email,
+      pronosticos: data.pronosticos,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
     });
     return docRef.id;
   };
