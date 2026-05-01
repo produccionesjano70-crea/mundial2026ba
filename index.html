@@ -407,7 +407,20 @@
 
 <div class="hero">
   <p class="hero-eyebrow">⚽ Copa del Mundo · Estados Unidos · México · Canadá</p>
-  <h1 class="hero-title">Mundial<br><span>2026</span></h1>
+
+  <!-- LOGOS + TÍTULO -->
+  <div style="display:flex;align-items:center;justify-content:center;gap:20px;margin-bottom:8px;">
+
+    <!-- LOGO IZQUIERDO — reemplazá por: <img src="tu-logo.png" style="height:80px;"> -->
+    <div style="width:80px;height:80px;border-radius:16px;background:linear-gradient(135deg,#e8c43a,#f0a020);display:flex;align-items:center;justify-content:center;font-size:38px;flex-shrink:0;">⚽</div>
+
+    <h1 class="hero-title">Mundial<br><span>2026</span></h1>
+
+    <!-- LOGO DERECHO — reemplazá por: <img src="tu-logo.png" style="height:80px;"> -->
+    <div style="width:80px;height:80px;border-radius:16px;background:linear-gradient(135deg,#e8c43a,#f0a020);display:flex;align-items:center;justify-content:center;font-size:38px;flex-shrink:0;">⚽</div>
+
+  </div>
+
   <p class="hero-sub">Completá tus pronósticos de los 72 partidos de la fase de grupos. ¡Sin trampas!</p>
   <div class="divider"></div>
 </div>
@@ -747,7 +760,7 @@ Object.entries(GROUPS).forEach(([g, data]) => {
 
   const hdr = document.createElement('div');
   hdr.className = 'group-header';
-  hdr.innerHTML = `<div class="group-badge">G${g}</div><div class="group-teams">${data.teams.join(' · ')}</div>`;
+  hdr.innerHTML = `<div class="group-badge">G${g}</div>`;
   sec.appendChild(hdr);
 
   data.matches.forEach((m, i) => {
