@@ -1027,26 +1027,31 @@ async function enviar() {
   };
 
   try {
-    // 1. Guardar en Firebase
+    // 1. Guardar en Firebase (critico)
     await window.guardarEnFirebase(data);
 
-    // 2. Enviar email con EmailJS
-    const pronosticosTexto = buildPronosticosTexto();
-    await emailjs.send("service_pwrb39w", "h6z3itm", {
-      nombre: nombre,
-      apellido: apellido,
-      telefono: telefono,
-      email: email,
-      pronosticos: pronosticosTexto
-    });
+    // 2. Enviar email con EmailJS (no critico)
+    try {
+      const pronosticosTexto = buildPronosticosTexto();
+      await emailjs.send("service_jdj1lxs", "h6z3itm", {
+        nombre: nombre,
+        apellido: apellido,
+        telefono: telefono,
+        email: email,
+        pronosticos: pronosticosTexto
+      });
+    } catch(emailErr) {
+      console.warn('Email no enviado, pronostico guardado igual:', emailErr);
+    }
 
     document.getElementById('loading').classList.remove('visible');
     document.getElementById('main-form').style.display = 'none';
     document.getElementById('success').classList.add('visible');
+
   } catch(e) {
     document.getElementById('loading').classList.remove('visible');
     btn.disabled = false;
-    showToast('Error al guardar. Intentá de nuevo.');
+    showToast('Error al guardar. Intenta de nuevo.');
     console.error(e);
   }
 }
